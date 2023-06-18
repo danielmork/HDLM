@@ -7,5 +7,7 @@ code/DataProcessing/CMAQ/*.txt
 code/DataProcessing/CO_CMAQ/*.txt
 code/DataProcessing/AnalysisData/*.csv
 code/DataProcessing/AnalysisData/*.rdata
+code/DataProcessing/CO_EPAairdata/*.txt
+code/DataProcessing/CO_EPAairdata/*.rda
 code/*.txt
 code/*.rdata
