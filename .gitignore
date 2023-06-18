@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+code/DataProcessing/CMAQ/*.txt
+code/DataProcessing/CO_CMAQ/*.txt
+code/DataProcessing/AnalysisData/*.csv
+code/DataProcessing/AnalysisData/*.rdata
+code/*.txt
+code/*.rdata
