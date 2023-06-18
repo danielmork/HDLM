@@ -1,0 +1,3 @@
+load("/Users/anderwilson/Library/CloudStorage/Dropbox/Papers/Mork_JASA_HDLM/HDLM/code/DataProcessing/CO_EPAairdata/county_idw_Temp.rda")
+library(tidyverse)
+dta_idw %>% arrange(date, county) %>% head()
