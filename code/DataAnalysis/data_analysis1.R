@@ -1,5 +1,6 @@
+library(dlmtree)
 # Load raw dataset
-load("data/CO_Birth_data.rda")
+load("CO_Birth_data.rda")
 
 pm_pred <- (as.matrix(dta_dlnm_dan[,grep("PM25_pred", colnames(dta_dlnm_dan))]))[,1:37]
 temp_idw <- as.matrix(dta_dlnm_dan[,grep("Temp", colnames(dta_dlnm_dan))])[,1:37]
@@ -47,8 +48,7 @@ pm_sd <- sd(pm_pred)
 pm_pred <- (pm_pred - mean(pm_pred)) / pm_sd
 rm(datCC, bwCC, expCC, cols, temp_idw)
 
-save(dat, pm_pred, pm_sd, 
-     file = "bw_dat.rda", compress = "xz")
+save(dat, pm_pred, pm_sd, file = "bw_dat.rda")
 
 library(dlmtree)
 # Fixed effect model
@@ -66,8 +66,8 @@ mod.list <- c("MatAge", "MotherBMI", "IncomeOrd", "MEducOrd",
 
 # Model params
 trees <- 20
-burn <- 5000
-iter <- 15000
+burn <- 50
+iter <- 150
 thin <- 5
 
 # Run models
@@ -85,9 +85,8 @@ for (model in 1:4) {
                   n.trees = trees, n.burn = burn, n.iter = iter, n.thin = thin,
                   save.data = FALSE)
     
-    save(bw, array.val, model, version, data.file, type,
-         file = paste0("pm_bw_full_mod-", type, ".rda"), 
-         compress = "xz")
+    save(bw, model, type,
+         file = paste0("pm_bw_full_mod-", type, ".rda"))
     
     
     # TDLM
@@ -96,9 +95,7 @@ for (model in 1:4) {
     bw <- tdlnm(fixed.effect, data = dat, exposure.data = pm_pred, exposure.splits = 0,
                 n.trees = trees, n.burn = burn, n.iter = iter, n.thin = thin)
     
-    save(bw, array.val, model, version, data.file, type,
-         file = paste0("/projects/dmork@colostate.edu/co_dlmtree/Out/",
-                       "pm_bw_full_", type, ".rda"), 
-         compress = "xz")
+    save(bw, model, type,
+         file = paste0("pm_bw_full_", type, ".rda"))
   }
 }
