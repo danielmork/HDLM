@@ -66,8 +66,8 @@ mod.list <- c("MatAge", "MotherBMI", "IncomeOrd", "MEducOrd",
 
 # Model params
 trees <- 20
-burn <- 50
-iter <- 150
+burn <- 5000
+iter <- 15000
 thin <- 5
 
 # Run models
