@@ -1,5 +1,6 @@
-type <- 1 # nested HDLM
-load(paste0("pm_bw_full_mod-", type, ".rda"))
+library(tidyverse)
+load("pm_bw_full_mod-shared.rda")
+load("bw_dat.rda")
 
 #### Modifier Selection ####
 sort(colMeans(bw$modCount > 0));
@@ -72,6 +73,7 @@ sampDLM2 <- estDLM(bw, dat, as.list(idx.samp[1001:2000]), verbose = F)
 sampDLM3 <- estDLM(bw, dat, as.list(idx.samp[2001:3000]), verbose = F)
 sampDLM4 <- estDLM(bw, dat, as.list(idx.samp[3001:4000]), verbose = F)
 sampDLM5 <- estDLM(bw, dat, as.list(idx.samp[4001:5000]), verbose = F)
+
 #### DLM effects ####
 dlm.df <- do.call(rbind.data.frame,
                   lapply(1:1000, function(i) {
@@ -100,6 +102,7 @@ ggplot(dlm.df) +
   labs(x = "Week of gestation",
        y = "Change in BWGAZ for\nIQR increase in log PM2.5", 
        color = "Mother's Age\n")
+
 #### Cumulative effects ####
 sampDLM1$ce <- lapply(1:1000, function(i) sum(sampDLM1$dlmMean[[i]]))
 sampDLM2$ce <- lapply(1:1000, function(i) sum(sampDLM2$dlmMean[[i]]))
@@ -146,12 +149,9 @@ ggplot(c.effect.df) +
         legend.key.width = unit(3, "cm")) +
   labs(y = "Mother's Age", x = "Body Mass Index", fill = "Avg. Cumulative Effect\n")
 
-library(tidyverse)
 c.effect.df %>% group_by(hispanic) %>%
   summarize(min(Cumulative), max(Cumulative))
 
-c.effect.df %>% group_by(hispanic) %>%
-  summarize(min(Cumulative)*bwg_inc, max(Cumulative)*bwg_inc)
 
 
 #### Modifier PIP results ####
@@ -248,3 +248,4 @@ ggplot() +
   scale_x_continuous(expand = c(0, 0.5)) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
+
