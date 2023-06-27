@@ -11,3 +11,6 @@ code/DataProcessing/CO_EPAairdata/*.txt
 code/DataProcessing/CO_EPAairdata/*.rda
 code/*.txt
 code/*.rdata
+data/CO_Birth_data.rda.rdata
+data/CO_Birth_data.rda
+data/subsample_data.R
