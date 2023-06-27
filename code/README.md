@@ -2,18 +2,18 @@
 1. dlmtree (version 0.8.0.0) 
 	* Install from source `install.packages(path_to_file, repos = NULL, type="source")`
     ! Updated software found at github.com/danielmork/dlmtree
-2. tidyverse (install from CRAN)
-3. ggplot2 (install from CRAN)
-4. viridis (install from CRAN)
-5. lubridate (install from CRAN)
-6. data.table (install from CRAN)
-7. units (install from CRAN)
-8. sf (install from CRAN)
-9. tigris (install from CRAN)
-10. raster (install from CRAN)
-11. gstat (install from CRAN)
-12. dplyr (install from CRAN)
-13. R.utils ()
+2. tidyverse (2.0.0)
+3. ggplot2 (3.4.2)
+4. viridis (0.6.3)
+5. lubridate (1.9.2)
+6. data.table (1.14.8)
+7. units (0.8.2)
+8. sf (1.0.13)
+9. tigris (2.0.3)
+10. raster (3.6.20)
+11. gstat (2.1.1)
+12. dplyr (1.1.2)
+13. R.utils (2.12.2)
 
 
 ## Files
