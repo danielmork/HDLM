@@ -1,162 +1,102 @@
-JASA Reproducibility Materials Template
+Heterogeneous Distributed Lag Models to Estimate Personalized Effects of Maternal Exposures to Air Pollution
 ================
 
-This GitHub repository contains a suggested template structure for authors who
-submit to JASA (either Applications and Case Studies or Theory and
-Methods) to include materials to reproduce analyses, visualizations, and
-tables.
 
-We provide this template as a default structure that we (the JASA Associate Editors of Reproducibility) think could be
-useful for many projects, either as is or with modifications by authors.
-However, the template is intended to be helpful and is by no means
-required of authors. Authors should consult [our reproducibility
-guide](https://jasa-acs.github.io/repro-guide) for details on what is
-required of reproducibility materials submitted with JASA revisions (not
-required upon initial submission).
-
-## Why is a template repository useful?
-
-The purpose of this template repository is to provide a mechanism for
-author(s) to share their materials via a Git repository, hosted on a
-cloud-based repository manager such as GitHub or GitLab. This provides
-the following advantages for author(s):
-
-1.  Analyses (including code, narrative text, output, plots, etc) can be
-    version controlled (or branched or forked) allowing original
-    author(s) to continue to develop the analyses or other data analysts
-    to build off the analyses. Also iterations and changes to the
-    analysis are then available via the Git commit history.
-2.  Materials are easily available to other researchers.
-3.  Preparing a repository also makes it easy for the JASA Associate
-    Editors for Reproducibility to copy the materials for a JASA article
-    into the JASA GitHub repository where the final paper products are stored
-    after publication (https://github.com/jasa-acs).
-
-## How does the process work?
-
-### Step 1
-
-Author(s) can create a public GitHub repository in their own GitHub account
-by using this template repository. This template contains a basic 
-skeletal structure to help authors structure their code and analyses for their 
-JASA publication. Creating a repository with the template can be done in the following way: 
-
-Click on the "Use this template" button for [this GitHub template repository](https://github.com/jasa-acs/repro-template). (You'll need to be signed in to a GitHub account in order to see the button.)
-
-![Click template button](https://docs.github.com/assets/cb-36544/images/help/repository/use-this-template-button.png)
-
-From there, author(s) can [follow these instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template). However do not optionally select "**Include all branches**" as you do not need this for your own projects. 
+Children's health studies support an association between maternal environmental exposures and children's birth outcomes. A common goal is to identify critical windows of susceptibility--periods during gestation with increased association between maternal exposures and a future outcome.  The timing of the critical windows and magnitude of the associations are likely heterogeneous across different levels of individual, family, and neighborhood characteristics. Using an administrative Colorado birth cohort we estimate the individualized relationship between weekly exposures to fine particulate matter (PM$_{2.5}$) during gestation and birth weight. To achieve this goal, we propose a statistical learning method combining distributed lag models and Bayesian additive regression trees to estimate critical windows at the individual level and identify characteristics that induce heterogeneity from a high-dimensional set of potential modifying factors. We find evidence of heterogeneity in the PM$_{2.5}$–birth weight relationship, with some mother-child dyads showing a 3 times larger decrease in birth weight for an IQR increase in exposure (5.9 to 8.5 $\mu g/m^3$ PM$_{2.5}$) compared to the population average. Specifically, we find increased vulnerability for non-Hispanic mothers who are either younger, have higher body mass index or lower educational attainment. Our case study is the first precision health study of critical windows.
 
 
-### Step 2
+## Data
 
-The author(s) can then directly edit (or replace) the manuscript template files in their own GitHub repository. Author(s) can also add their own data, code, and other files as needed. 
+We used data from three sources. First is birth records from the Colorado Birth Registry. There were provided by the Colorado Department of Public Health and Environment under a data use agreement. Second is fine particulate matter (PM2.5) air pollution exposure data from the US Environmental Protection Agency (EPA). Third is temperature data from the US EPA. The use of these data for the analyses in this paper was approved by the institutional review board of Colorado State University. Data sources are described in Section 2 of the main text. 
 
-For guidance on getting started with git, we recommend the [Happy with git r](https://happygitwithr.com) tutorials.
+This data folder of this repository contains simulated data files that replicate the inputs and outputs of the data processing scripts.
 
-**Importantly, the authors should provide an overview of how to carry
-out the analyses presented in their manuscript in the `README.md` of their
-repository, replacing the content in this file.** This overview would
-generally refer to scripts/code files that execute the analyses and are
-placed either in the main directory or the `/code` subdirectory. The
-*Workflow* section of the ACC form should refer to this README.md as
-containing the instructions for how to reproduce the analyses.
+- co_birth_simulated.csv: Simulated data that mimics the birth data provided by Colorado Department of Public Health and Environment.
+- fenton_simulated.csv: Simulated birth weight for gestational age z scores. These can be linked to the birth data. Data processing script 6 can be altered to use this file (uncomment line of code reading in this file). That avoids the tedious process of linking the simulated birth weights to Fenton z scores, which serves no purpose here because the data are simulated.
+- CO_Birth_data_simulated_50000.rda: The output file created from the data processing scripts. This can be used as input to the analysis scripts. This is the result of running the data processing scripts on the simulated data. It contains only simulated health data linked to real exposure data. Because of file size limitations on GitHub we have uploaded a random sample of 50000 births.
 
-### Step 3
+All birth data included in this repository is simulated. 
 
-Author(s) use `git commit` to track changes over time and use `git push`
-to push changes to a repository on the author(s) personal GitHub
-account.
 
-### Step 4
 
-Author(s) submit a link to their GitHub repository as part of the [JASA
-Reproducibility review process](https://jasa-acs.github.io/repro-guide/),
-required upon submission of an invited revision.
+## Code
 
-### Step 5
+### Required R Packages 
 
-JASA Associate Editors for Reproducibility will review the materials in
-the GitHub repository of the authors and submit a
-reproducibility review as part of the standard JASA review process.
-Authors have the opportunity to respond to the review by making changes
-and pushing their changes to their personal GitHub repository.
+The following packages are required to use the included code.
 
-### Step 6
+1. dlmtree (version 0.8.0.0) 
+	* Install from source `install.packages(path_to_file, repos = NULL, type="source")`
+    ! Updated software found at github.com/danielmork/dlmtree
+2. tidyverse (2.0.0)
+3. ggplot2 (3.4.2)
+4. viridis (0.6.3)
+5. lubridate (1.9.2)
+6. data.table (1.14.8)
+7. units (0.8.2)
+8. sf (1.0.13)
+9. tigris (2.0.3)
+10. raster (3.6.20)
+11. gstat (2.1.1)
+12. dplyr (1.1.2)
+13. R.utils (2.12.2)
 
-Once the manuscript is accepted, the materials in the author(s) personal
-GitHub repository will be copied to the [JASA repository](https://github.com/jasa-acs).
 
-## Reproducibility materials file structure
+### Files
 
-This template provides a suggested file structure for a JASA submission, but authors are free
-to modify this structure.
+The current version of the dlmtree package is available at https://github.com/danielmork/dlmtree. We have included in this repository an archived version used in this paper.
 
-The suggested components are as follows. Directories in the submission may have subdirectories to
-further organize the materials.
+1. dlmtree_0.8.0.0.tar.gz : R package dlmtree
 
-1.  A `README.md` file - This file gives a short description of the
-    paper and an overview of how to carry out the analyses presented in their manuscript.
-2.  A `manuscript` directory - This directory will generally hold the source files
-    (often LaTeX or Rmd) for the manuscript and any files directly related to the
-    generation of the manuscript, including figure files.
-3.  A `data` directory - This directory will generally hold the real data files 
-    (or facsimile versions of them in place of confidential data) and simulated data files.
-    See `data/README.md` for more details. 
-4.  A `code` directory - This directory will generally hold 
-    source code files that contain the core code to implement the method and various utility/auxiliary functions.
-5.  An `output` directory - This directory will generally hold objects derived
-    from computations, including results of simulations or real data analyses. See `output/README.md` for more details.
+### Data Preparation Scripts
 
-## Guidance on the use of reproducible environments
+The following scripts will reproduce the data processing steps required to make the analysis file used. They are run in order. They will download large amounts of data. Processing is slow.
 
-Submissions may include the use of reproducible environments capturing
-state of a machine generating manuscript artifacts and even the
-manuscript itself. Here we discuss two types of reproducible
-environments and their use. Both virtual and package environments may be
-put in the `code` directory.
+1. 1_getcmaq.R
+2. 2_LimitCMAQToColorado.R
+3. 3_GetEPAairdata.R
+4. 4_IDW.R
+5. 5_MergeCMAQandIDW.R
+6. 6_prep_limit_birth_data.R (Note: There is a manual linking step in this script. We have included an alternative approach to link simulated data. Please see commented out part of the Fenton z-score linking section of the code.)
+7. 7_make_analysis_file.R
 
-### Package environments
 
-Package environments capture the set of packages used by a programming
-language needed to generate output. The R programming language has
-`renv`, `switchr` and others to accomplish this, Python has `venv`,
-`conda` and others, and Julia has native support (through the `Pkg`
-package). When submitting these types of environments, the following are
-suggested.
+### Simulation Scripts
 
-1.  Clearly indicate (in the overall `README.md`) the language(s) used (including version) 
-    and the package environment tool used (e.g., `renv`, `conda`).
-2.  Use a single package environment for all reproducible content.
-3.  Prefer packages from package archives (CRAN, Bioconductor,
-    RForge.net for example).
-4.  If you use packages from a code repository (GitHub, GitLab, etc.)
-    then use a release version if possible, or indicate the commit used. You could also consider
-    forking the repository and providing a release.
+The following scripts reproduce the simulation results.
 
-### Virtual environments
+1. sim.R : replicate all simulation results
+2. analyze.sim.dlmtree.R : function for simulation results
+3. run.sim.R : produces results and tables
+4. TDLM_vs_BART_sim.R : script for part of Figure 1
+5. HDLM_vs_BART_sim.R : script for part of Figure 1
+6. sim_res_waic.txt numerical output from simulation
 
-Virtual environments such as Docker and Singlarity capture
-the entire computing environment in which computations were performed.
-In general, they are a more robust solution, capable of taking a
-“snapshot” of a machine, including any system-level utilities and
-external libraries needed to perform your computations. They have the
-advantage that reproducing materials means running the virtual
-environment, rather than recreating the programming language environment.
-If using a virtual environment, we ask that 
-you provide a definition file (e.g., a Dockerfile) or (perhaps better)
-a link to an image in a standard online registry, such as DockerHub.
+### Data Analysis Scripts
+
+The following scripts reproduce the data analysis results.
+
+1. data_analysis1.R : run data analysis models
+2. data_analysis2.R : data analysis results
+3. data_analysis3.R : data analysis cross validation
+
 
 ## References
 
-Gentleman, Robert, and Duncan Temple Lang. “[Statistical Analyses and
-Reproducible
-Research](http://biostats.bepress.com/cgi/viewcontent.cgi?article=1001&context=bioconductor).”
-(2004).
+Mork, Daniel, Kioumourtzoglou, Marianthi-Anna, Weisskopf, Marc, Coull, Brent A, and Wilson, Ander. “[Heterogeneous Distributed Lag Models to Estimate Personalized Effects of Maternal Exposures to Air Pollution](https://arxiv.org/abs/2109.13763).”
+(2022).
 
-Gentleman, Robert. “[Reproducible research: a bioinformatics case
-study](https://www.degruyter.com/document/doi/10.2202/1544-6115.1034/html).”
-Statistical applications in genetics and molecular biology 4.1 (2005).
+Mork, Daniel. [dlmtree Github Page](https://github.com/danielmork/dlmtree).
 
-Marwick, Ben, and Bryan, Jennifer, and Attali, Dean, and Hollister,
-Jeffrey W. [rrrpkg Github Page](https://github.com/ropensci/rrrpkg).
+
+
+## Acknowldgements 
+
+This work was supported by National Institutes of Health grants ES029943, ES028811, and P30-ES000002. This research was also supported by USEPA grants RD-839278 and RD-83587201. Its contents are solely the responsibility of the grantee and do not necessarily represent the official views of the USEPA. Further, USEPA does not endorse the purchase of any commercial products or services mentioned in the publication.
+
+This work utilized the RMACC Summit supercomputer, which is supported by the National Science Foundation (awards ACI-1532235 and ACI-1532236), the University of Colorado Boulder and Colorado State University. The RMACC Summit supercomputer is a joint effort of the University of Colorado Boulder and Colorado State University.
+
+These data were supplied by the Center for Health and Environmental Data Vital Statistics Program of the Colorado Department of Public Health and Environment, which specifically disclaims responsibility for any analyses, interpretations, or conclusions it has not provided.
+
+
+
