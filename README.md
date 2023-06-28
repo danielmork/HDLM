@@ -1,6 +1,7 @@
 Heterogeneous Distributed Lag Models to Estimate Personalized Effects of Maternal Exposures to Air Pollution
 ================
 
+## Article Abstract
 
 Children's health studies support an association between maternal environmental exposures and children's birth outcomes. A common goal is to identify critical windows of susceptibility--periods during gestation with increased association between maternal exposures and a future outcome.  The timing of the critical windows and magnitude of the associations are likely heterogeneous across different levels of individual, family, and neighborhood characteristics. Using an administrative Colorado birth cohort we estimate the individualized relationship between weekly exposures to fine particulate matter (PM$_{2.5}$) during gestation and birth weight. To achieve this goal, we propose a statistical learning method combining distributed lag models and Bayesian additive regression trees to estimate critical windows at the individual level and identify characteristics that induce heterogeneity from a high-dimensional set of potential modifying factors. We find evidence of heterogeneity in the PM$_{2.5}$–birth weight relationship, with some mother-child dyads showing a 3 times larger decrease in birth weight for an IQR increase in exposure (5.9 to 8.5 $\mu g/m^3$ PM$_{2.5}$) compared to the population average. Specifically, we find increased vulnerability for non-Hispanic mothers who are either younger, have higher body mass index or lower educational attainment. Our case study is the first precision health study of critical windows.
 
@@ -15,7 +16,7 @@ This data folder of this repository contains simulated data files that replicate
 - fenton_simulated.csv: Simulated birth weight for gestational age z scores. These can be linked to the birth data. Data processing script 6 can be altered to use this file (uncomment line of code reading in this file). That avoids the tedious process of linking the simulated birth weights to Fenton z scores, which serves no purpose here because the data are simulated.
 - CO_Birth_data_simulated_50000.rda: The output file created from the data processing scripts. This can be used as input to the analysis scripts. This is the result of running the data processing scripts on the simulated data. It contains only simulated health data linked to real exposure data. Because of file size limitations on GitHub we have uploaded a random sample of 50000 births.
 
-All birth data included in this repository is simulated. 
+*All birth data included in this repository is simulated.*
 
 
 
