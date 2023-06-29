@@ -3,11 +3,9 @@ library(dlmtree)
 
 
 # Setup simulation
-# dir <- "/projects/dmork@colostate.edu/co_dlmtree/sim.dlmtree/"
-dir <- "sim.res/"
 source(file = "analyze.sim.dlmtree.R")
 source(file = "sim.dlmtree.R")
-file.path <- paste0(dir, "sim_res_waic.txt")
+file.path <- "sim_res_waic.txt"
 sim <- c("A", "B", "C")
 n <- 5000
 num.burn <- 5000
