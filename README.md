@@ -64,7 +64,7 @@ The following scripts will reproduce the data processing steps required to make 
 
 ### Simulation Scripts
 
-The following scripts reproduce the simulation results.
+The following scripts reproduce the simulation results. The R package contains data files that can be used for a close approximation of simulation results. Exact results rely on the processed data created in Data Preparation Scripts. Simulation scenarios and models can be passed to a distributed computing system to speed up replication.
 
 1. run.sim.R: iterates through all simulation scenarios and models
 2. sim.dlmtree.R: function to create each simulation scenario and replicate
