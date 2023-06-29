@@ -66,14 +66,13 @@ The following scripts will reproduce the data processing steps required to make 
 
 The following scripts reproduce the simulation results. The R package contains data files that can be used for a close approximation of simulation results. Exact results rely on the processed data created in Data Preparation Scripts. Simulation scenarios and models can be passed to a distributed computing system to speed up replication.
 
-1. run.sim.R: iterates through all simulation scenarios and models
-2. sim.dlmtree.R: function to create each simulation scenario and replicate
-3. sim.R: functions to run each comparison model
-4. analyze.sim.dlmtree.R : function for simulation results
-5. sim_res_waic.txt numerical output from simulation
-6. sim.results.R: produces simulation result tables used in manuscript and supplement
-7. TDLM_vs_BART_sim.R : script for part of Figure 1
-8. HDLM_vs_BART_sim.R : script for part of Figure 1
+1. run.sim.R: iterates through all simulation scenarios and models.
+2. sim.R: functions to run each comparison model. This is called nu run.sim.R.
+3. sim.dlmtree.R: function to create each simulation scenario and replicate. This is called by sim.R.
+4. analyze.sim.dlmtree.R : function for simulation results. This is called by sim.R.
+5. sim.results.R: produces simulation result tables used in manuscript and supplement. This uses sim_res_waic.txt as an input.
+6. TDLM_vs_BART_sim.R : script for part of Figure 1.
+7. HDLM_vs_BART_sim.R : script for part of Figure 1.
 
 ### Data Analysis Scripts
 
@@ -92,6 +91,11 @@ Mork, Daniel, Kioumourtzoglou, Marianthi-Anna, Weisskopf, Marc, Coull, Brent A, 
 Mork, Daniel. [dlmtree Github Page](https://github.com/danielmork/dlmtree).
 
 
+## Output
+
+The following output files are included in the output folder.
+
+1. sim_res_waic.txt numerical output from simulation. This is created by code/Simulation/sim.R (and therefore by code/Simulation/run.sim.R which calls code/Simulation/sim.R). It is input to code/Simulation/sim.results.R.
 
 ## Acknowldgements 
 
