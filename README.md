@@ -66,12 +66,14 @@ The following scripts will reproduce the data processing steps required to make 
 
 The following scripts reproduce the simulation results.
 
-1. sim.R : replicate all simulation results
-2. analyze.sim.dlmtree.R : function for simulation results
-3. run.sim.R : produces results and tables
-4. TDLM_vs_BART_sim.R : script for part of Figure 1
-5. HDLM_vs_BART_sim.R : script for part of Figure 1
-6. sim_res_waic.txt numerical output from simulation
+1. run.sim.R: iterates through all simulation scenarios and models
+2. sim.dlmtree.R: function to create each simulation scenario and replicate
+3. sim.R: functions to run each comparison model
+4. analyze.sim.dlmtree.R : function for simulation results
+5. sim_res_waic.txt numerical output from simulation
+6. sim.results.R: produces simulation result tables used in manuscript and supplement
+7. TDLM_vs_BART_sim.R : script for part of Figure 1
+8. HDLM_vs_BART_sim.R : script for part of Figure 1
 
 ### Data Analysis Scripts
 
