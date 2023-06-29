@@ -80,7 +80,7 @@ The following scripts reproduce the simulation results. The R package contains d
 The following scripts reproduce the data analysis results.
 
 1. data_analysis1.R : run data analysis models
-2. data_analysis2.R : data analysis results
+2. data_analysis2.R : data analysis results, tables, and figures
 3. data_analysis3.R : data analysis cross validation
 
 
