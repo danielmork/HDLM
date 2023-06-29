@@ -228,7 +228,7 @@ for(i in 1:3){
 library(data.table)
 setDT(plot_data)
 plot_data$model <- factor(plot_data$model, labels = c("BART", "Nested Tree HDLM"))
-#pdf("output/HDLM_vs_BART_figure.pdf", height=3, width=4)
+pdf("output/HDLM_vs_BART_figure.pdf", height=3, width=4)
 ggplot(data=plot_data[type!="difference"]) +
   geom_hline(yintercept = 0, color = "red", size = 1) +
   geom_ribbon(aes(x=time, y=mean, ymin=lower, ymax=upper), fill="grey", color=NA) +
@@ -244,6 +244,6 @@ ggplot(data=plot_data[type!="difference"]) +
         legend.position = "bottom", panel.grid = element_blank())
 
 
-# dev.off()
+dev.off()
 
 

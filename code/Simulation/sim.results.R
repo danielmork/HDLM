@@ -5,7 +5,7 @@ library(ggplot2)
 library(tables)
 library(kableExtra)
 
-sims <- read.csv("sim_res_waic.txt")
+sims <- read.csv("output/sim_res_waic.txt")
 sims <- sims %>% filter(trimws(model) %in% c("dlmtree:TDLMnested", "dlmtree:TDLMpairs",
                                              "dlmtree:GP",
                                              "dlmtree:SingleTDLM", "dlmtree:SingleGP",
