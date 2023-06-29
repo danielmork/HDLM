@@ -45,9 +45,7 @@ The following packages are required to use the included code.
 
 ### Files
 
-The current version of the dlmtree package is available at https://github.com/danielmork/dlmtree. We have included in this repository an archived version used in this paper.
-
-1. dlmtree_0.8.0.0.tar.gz : R package dlmtree
+The current version of the dlmtree package is available at https://github.com/danielmork/dlmtree. We have included as supplemental material in the paper an archived version used in this paper.
 
 ### Data Preparation Scripts
 
@@ -64,7 +62,7 @@ The following scripts will reproduce the data processing steps required to make 
 
 ### Simulation Scripts
 
-The following scripts reproduce the simulation results. The R package contains data files that can be used for a close approximation of simulation results. Exact results rely on the processed data created in Data Preparation Scripts. Simulation scenarios and models can be passed to a distributed computing system to speed up replication.
+The following scripts reproduce the simulation results. The R package dlmtree contains data files that can be used for a close approximation of simulation results. Exact results rely on the processed data created in Data Preparation Scripts. Simulation scenarios and models can be passed to a distributed computing system to speed up replication.
 
 1. run.sim.R: iterates through all simulation scenarios and models.
 2. sim.R: functions to run each comparison model. This is called nu run.sim.R.
