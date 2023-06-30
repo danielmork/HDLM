@@ -11,6 +11,7 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{appendix}
+\usepackage{hyperref}
 \graphicspath{{./img/}}
 \bibliographystyle{apalike}
 
@@ -26,10 +27,27 @@
 \begin{document}
 \title{Supplemental Material to:\\
 ``Heterogeneous Distributed Lag Models to Estimate Personalized Effects of Maternal Exposures to Air Pollution''}
+\author{Daniel Mork\\ 
+Department of Biostatistics\\ Harvard T.H. Chan School of Public Health\\\\
+
+Marianthi-Anna Kioumourtzoglou\\
+Department of Environmental Health Sciences\\
+Columbia University Mailman School of Public Health\\\\
+
+Marc Weisskopf\\
+Department of Environmental Health\\ 
+Harvard T.H. Chan School of Public Health\\\\ 
+
+Brent A Coull\\
+Department of Biostatistics\\
+Harvard T.H. Chan School of Public Health\\\\ 
+
+Ander Wilson\\ 
+Department of Statistics\\ Colorado State University}
 \date{}
 
 \maketitle
-%\clearpage
+\clearpage
 \setstretch{1.3}
 
 
@@ -80,7 +98,7 @@ Variance parameters $\tau_a,\nu,\sigma$ follow a half-Cauchy distribution with s
 We first propose a method for estimating the HDLM using Gaussian processes. Consider a single modifier tree terminal node, $\eta_{ab}$, containing a subset of observations. Let the corresponding $T-$dimensional set of DLM parameters $\boldsymbol\theta_{ab}$ follow a Gaussian process with covariance function $\Sigma_{\boldsymbol\phi}(t,t')$ where $\boldsymbol\phi$ are parameters defining the covariance. We consider the exponential covariance, $\Sigma_{\phi}(t,t')=\exp\{-\phi|t-t'|\}$. An inherent assumption of this approach is that all observations share the same value of $\phi$ due to the computation approach and therefore have the same smoothness over time in their distributed lag functions. Having a common $\phi$ for all nodes on a tree is required due to model computation, which requires integration over the distributed lag function for each subgroup. The equal smoothness assumption may be beneficial if the distributed lag function for all observations have a similar magnitude and window length. In the case where there is a nonzero exposure effect in only a small proportion of the population, the smoothness of the distributed lag function imposed by the remaining sample will make this critical window difficult to estimate. This is because estimation of the smoothing parameter will largely reflect the null group and cause oversmoothing in the group for which there is a non-zero association during some gestational weeks.
 
 We define the Gaussian process prior for the distributed lag function as $\boldsymbol\theta_{ab} |\tau_a,\nu,\sigma,\phi \sim \mathcal{GP}[\mathbf{0},\tau_a^2\nu^2\sigma^2\boldsymbol\Sigma(\phi)]$.
-The variance parameters follow a half-Cauchy prior, $\tau_a,\nu\sim\mathcal{C}^+(0,1)$, to define a local-global horseshoe-like estimator on tree specific effects \citep{Carvalho2010}. This differs from previous BART implementations \citep{Chipman2012,Starling2019}, which apply a uniform variance across all trees. The horseshoe variance prior will shrink the effects of misspecified trees reducing variance and false window detection. A similar prior specification was shown to improve DLM estimation in the treed DLM method of \cite{Mork2022EstimatingPairs}. We restrict the range of $\phi$ to $\exp\{-\phi\}\in(0.05, 0.95)$ and assign prior $\phi\sim\text{Gamma}(1/2,1/2)$ truncated over the range of $\phi$, which gives higher probability to a smoother distributed lag function.
+The variance parameters follow a half-Cauchy prior, $\tau_a,\nu\sim\mathcal{C}^+(0,1)$, to define a local-global horseshoe-like estimator on tree specific effects \citep{Carvalho2010}. This differs from previous BART implementations \citep{Chipman2012,Starling2019}, which apply a uniform variance across all trees. The horseshoe variance prior will shrink the effects of misspecified trees reducing variance and false window detection. A similar prior specification was shown to improve DLM estimation in the treed DLM method of \cite{Mork2023EstimatingPairs}. We restrict the range of $\phi$ to $\exp\{-\phi\}\in(0.05, 0.95)$ and assign prior $\phi\sim\text{Gamma}(1/2,1/2)$ truncated over the range of $\phi$, which gives higher probability to a smoother distributed lag function.
 
 The Gaussian process prior for DLM effects is
 \begin{equation}
@@ -142,7 +160,7 @@ The distribution of the partial distributed lag effects is
     \label{eq:Ra-partial-dlnm-dist}
     \mathbf{R}_a|- \sim \mathcal{MVN}\left(\mathbb{X}_a\Theta_{a},\sigma^2\mathbf{V_Z} \right)
 \end{equation}
-where $\Theta_a=[\boldsymbol\theta_{a1}',\ldots,\boldsymbol\theta_{aB_a}']'$ represents a vector of distributed lag parameters parameters corresponding to the subgroups of modifier tree $\mathcal{T}_a$. In the case of nested and shared tree HDLMs, sets of the $\boldsymbol\theta_{ab}$ parameters are equal based on the piecewise constant structure of the treed DLM \citep{Mork2022EstimatingPairs}.
+where $\Theta_a=[\boldsymbol\theta_{a1}',\ldots,\boldsymbol\theta_{aB_a}']'$ represents a vector of distributed lag parameters parameters corresponding to the subgroups of modifier tree $\mathcal{T}_a$. In the case of nested and shared tree HDLMs, sets of the $\boldsymbol\theta_{ab}$ parameters are equal based on the piecewise constant structure of the treed DLM \citep{Mork2023EstimatingPairs}.
     
 \subsubsection{Tree prosposal}
 We update each $\mathcal{T}_{a}$, using a Metropolis-Hastings algorithm. We consider a proposal distribution with transition steps as follows:
@@ -193,7 +211,7 @@ r=\min\left\{1,\frac{p(\mathcal{T}_{a}^*)p(\mathbf{R}_a|\mathcal{T}_{a}^*,-)p(\m
 
 
 \subsection{Treed DLM update}
-For the shared tree HDLM, a single treed DLM, $\mathcal{D}_a$, is updated for every modifier tree, $\mathcal{T}_a$. In the nested tree HDLM, a nested treed DLM, $\mathcal{D}_{ab}$ is updated for each modifier tree terminal node $\eta_{ab}$. Proposals for the treed DLMs occur through grow, prune, and change steps, and use a uniform prior over the remaining time splitting points. See \cite{Mork2022EstimatingPairs} for more details.
+For the shared tree HDLM, a single treed DLM, $\mathcal{D}_a$, is updated for every modifier tree, $\mathcal{T}_a$. In the nested tree HDLM, a nested treed DLM, $\mathcal{D}_{ab}$ is updated for each modifier tree terminal node $\eta_{ab}$. Proposals for the treed DLMs occur through grow, prune, and change steps, and use a uniform prior over the remaining time splitting points. See \cite{Mork2023EstimatingPairs} for more details.
 
 After a new treed DLM has been proposed, it is accepted with the independent Metropolis-Hastings algorithm. This process is identical to that described for modifier trees in Section \ref{sec:accept-mod-tree}.
 
@@ -250,6 +268,7 @@ where $\boldsymbol\theta_{ab}$ is the vector of DLM effects for modifier tree te
 %======================================
 \section{Additional Simulation Results} 
 %======================================
+Code and descriptions to replicate simulation results are available at \url{https://github.com/danielmork/HDLM}.
 \subsection{Scenario 1: Early/Late Window}
 Table \ref{tab:scen1_res} presents simulation results from Scenario 1 including Gaussian process HDLM and DLM.
 
@@ -572,12 +591,6 @@ We compared distributed lag estimates using the standard BART model to the treed
 
 Table \ref{tab:tdlm_v_bart} summarizes results from the simulation comparing BART and treed DLM over 100 simulation replicates. We note that treed DLM has lower RMSE, smaller credible intervals and much higher power. Specifically, the RMSE and variance of treed DLM as described by credible interval width are both reduced by a factor of 5, while the correct detection of critical windows (TP) is four times larger in treed DLM compared to BART.
 
-%\begin{figure}[!ht]
-%    \centering
-%    \includegraphics[width=0.8\textwidth]{supp-img/TDLM_vs_BART_figure.pdf}
-%    \caption{Example of the distributed lag function for a single simulation replicate and comparison of estimates from BART and TDLM (panels). The dashed blue line displays the true distributed lag function while the solid black line indicates the posterior mean with 95\% credible interval in the shaded region.}
-%    \label{fig:tdlm_v_bart}
-%\end{figure}
 
 \begin{table}[!ht]
     \caption{Comparison of BART to TDLM in estimating a DLM averaged over 100 simulation replicates. Coverage is the proportion of the true DLM effects contained by 95\% credible intervals, CI width is the average distance between the 2.5\% and 97.5\% quantiles of the credible interval, TP is the probability of detecting a true critical window, FP is the probability of placing a critical window where there is zero effect.}
@@ -640,6 +653,7 @@ Table \ref{tab:hdlm_v_bart} summarizes results from the simulation comparing BAR
 %======================================
 \section{Additional Data Analysis Results} 
 %======================================
+Code and descriptions to replicate data analysis results are available at \url{https://github.com/danielmork/HDLM}.
 %======================================
 \subsection{Colorado birth cohort data}
 %======================================
@@ -701,7 +715,7 @@ To assess convergence we compared multiple MCMC chains for similar results. In a
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=\textwidth]{img/dlm_traceplots.png}
+    \includegraphics[width=\textwidth]{supp-img/dlm_traceplots.png}
     \caption{Trace plots of selected group (row facets) DLM effects (y-axis) at a range of lag times (column facets). The dotted red line shows zero effect and the solid white line indicates the posterior mean of the respective group/time distributed lag effect.}
     \label{fig:trace}
 \end{figure}
@@ -741,12 +755,12 @@ Figure \ref{fig:pip-cont} describes the posterior distribution of splitting rule
 \begin{figure}
     \centering
     \begin{subfigure}{.46\textwidth}
-        \includegraphics[width=.95\textwidth]{img/bwgaz_cont_split.png}
+        \includegraphics[width=.95\textwidth]{supp-img/bwgaz_cont_split.png}
         \caption{}
         \label{fig:pip-cont}
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
-        \includegraphics[width=.95\textwidth]{img/bwgaz_pip_int.png}
+        \includegraphics[width=.95\textwidth]{supp-img/bwgaz_pip_int.png}
         \caption{}
         \label{fig:pip-int}
     \end{subfigure}
@@ -767,7 +781,7 @@ Figure \ref{fig:est_tdlm} shows the results from the treed DLM without effect mo
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[height=5cm]{img/bwgaz_tdlm.png}
+    \includegraphics[height=5cm]{supp-img/bwgaz_tdlm.png}
     \caption{Estimated distributed lag functions due to an IQR increase in PM$_{2.5}$ using the treed DLM with no effect modification. The solid line indicates the posterior mean while the gray area represents a 95\% credible interval. Weeks where the credible interval does not contain zero represent critical windows.}
     \label{fig:est_tdlm}
 \end{figure}
@@ -866,21 +880,3 @@ We replicate the subgroup-specific analyses of the paper using the Gaussian proc
 
 \end{document}
 
-
-\author{Daniel Mork\\ 
-Department of Statistics, Colorado State University\\\\
-
-Marianthi-Anna Kioumourtzoglou\\
-Department of Environmental Health Sciences\\
-Columbia University Mailman School of Public Health\\\\
-
-Marc Weisskopf\\
-Department of Environmental Health\\ 
-Harvard T.H. Chan School of Public Health\\\\ 
-
-Brent A Coull\\
-Department of Biostatistics\\
-Harvard T.H. Chan School of Public Health\\\\ 
-
-Ander Wilson\\ 
-Department of Statistics, Colorado State University}
