@@ -40,21 +40,18 @@
 \if1\blind
 {
   \title{\bf Heterogeneous Distributed Lag Models to Estimate Personalized Effects of Maternal Exposures to Air Pollution}
-  \author{Daniel Mork\\%\thanks{This work was supported by National Institutes of Health grants ES029943, ES028811, and P30-ES000002. This research was also supported by USEPA grants RD-839278 and RD-83587201. Its contents are solely the responsibility of the grantee and do not necessarily represent the official views of the USEPA. Further, USEPA does not endorse the purchase of any commercial products or services mentioned in the publication. This work utilized the RMACC Summit supercomputer, which is supported by the National Science Foundation (awards ACI-1532235 and ACI-1532236), the University of Colorado Boulder and Colorado State University. The RMACC Summit supercomputer is a joint effort of the University of Colorado Boulder and Colorado State University. These data were supplied by the Center for Health and Environmental Data Vital Statistics Program of the Colorado Department of Public Health and Environment, which specifically disclaims responsibility for any analyses, interpretations, or conclusions it has not provided.}\hspace{.2cm}\\ 
-Department of Biostatistics\\ Harvard T.H. Chan School of Public Health\\\\
-
+  \author{Daniel Mork\\
+Department of Biostatistics\\ 
+Harvard T.H. Chan School of Public Health\\\\
 Marianthi-Anna Kioumourtzoglou\\
 Department of Environmental Health Sciences\\
 Columbia University Mailman School of Public Health\\\\
-
 Marc Weisskopf\\
 Department of Environmental Health\\ 
 Harvard T.H. Chan School of Public Health\\\\ 
-
 Brent A Coull\\
 Department of Biostatistics\\
 Harvard T.H. Chan School of Public Health\\\\ 
-
 Ander Wilson\\ 
 Department of Statistics\\ Colorado State University}
   \maketitle
@@ -92,14 +89,8 @@ A growing body of research has found maternal exposure to environmental chemical
 
 We aim to identify populations with increased vulnerability to pollution exposure and estimate individualized critical windows and exposure-time-response functions. Estimating individualized critical windows and exposure-response relationships will better inform precision environmental health interventions and bring attention to vulnerable populations, which the Environmental Protection Agency (EPA) is required to protect through the 2016 update to the Toxic Substances Control Act \citep{Krimsky2017TheAct}. Several epidemiological studies have previously considered the question of identifying subgroup specific critical windows for a small number of predefined groups. \citet{Lee2017} and \citet{Bose2017PrenatalSex} found increased risk of asthma due to prenatal exposures to fine particulate matter (PM$_{2.5}$) and nitrate for a subgroup of boys concurrently exposed to high prenatal stress. \citet{Chiu2017PrenatalAssociations} identified early- to mid-pregnancy critical windows where increased PM$_{2.5}$ exposure during pregnancy was associated with increased body mass index (BMI) z-scores and fat mass in boys and waist-to-hip ratios in girls. However, no paper has allowed for a data-driven approach to heterogeneity by simultaneously looking across multiple modifiers. 
 
-%Using an administrative database of 310,236 birth vital statistics records from Colorado, USA we estimate the relationship between PM$_{2.5}$ exposure during pregnancy and resulting birth weight. Specifically, we seek to determine if critical windows of susceptibility and the exposure-response relationship vary across the population and which factors are responsible for this heterogeneity. Our dataset contains a range of individual covariates, including mother's age, weight, height, income, education, marital status, prenatal care habits, smoking before and during pregnancy, as well as race and Hispanic designations. To answer our question, we propose a Bayesian regression tree framework for estimating critical windows and identifying susceptible populations.
 
 A commonly applied method to identify perinatal critical windows and estimate the exposure-time-response relation between maternal exposures and an outcome is the distributed lag model (DLM). In a DLM, an outcome is regressed on repeated measures of an exposure assessed over a time period prior to the outcome. The vector of regression coefficients for linear effects at each exposure time point is referred to as the distributed lag function and characterizes both critical windows and the exposure-response association. Current methods to estimate DLMs that vary across a population are limited to predefined strata or spatially varying effects. In the age of big data, we have access to a host of potential modifiers, but the true modifiers responsible for differences in distributed lag function are unknown. Harnessing this information can lead to personalized environmental health decisions and directly address EPA's mandate to establish regulations protecting populations most vulnerable to exposure.  
-
-
-%The distributed lag function is typically constrained to vary smoothly over the time period of exposure. These constraints yield effect estimates that are more biologically plausible, adds stability to the estimator in the presence of high autocorrelation in the exposure data, and avoids categorizations of the exposure period that might not perfectly align with developmental windows (e.g trimesters) \citep{Wilson2017PotentialHealth}. Methods for constraining DLMs include splines \citep{Zanobetti2000}, Gaussian processes \citep{Warren2020}, principal components \citep{Wilson2017a}, and regression trees \citep{Mork2022EstimatingPairs}. The majority of studies that apply these methods assume a homogeneous exposure-response relationship across the population.
-
-%Several methods have sought to estimate DLMs that vary across a population. \cite{Wilson2017a} proposed a Bayesian distributed lag interaction model (BDLIM) to estimate differences in the exposure-response function for a parsimonious set of predetermined subgroups. \cite{Warren2020} developed spatially-varying DLMs to account for changes in pollution composition or demographics over a study region. These papers highlight the bias incurred by a homogeneous effects assumption when effects are truly heterogeneous; however the methods of \cite{Wilson2017a} and \cite{Warren2020} remain limited in their scope and interpretability. A spatially-varying DLM is unable to identify the subject characteristics associated with changes in the underlying distributed lag function. BDLIM is limited to predefined categorical subgroups and most reasonably applied to data having only a small number of subgroups. In the age of big data, we have access to a potentially high dimensional set of modifiers, but the true modifiers responsible for differences in distributed lag function are unknown. Harnessing this information can lead to personalized environmental health decisions and therefore directly address EPA's mandate to establish regulations protecting populations most susceptible to exposure.  
 
 
 
@@ -107,19 +98,6 @@ In this paper we analyze an administrative Colorado birth cohort dataset. We lev
 
 Our data analysis is the first study to estimate individualized critical windows to air pollution exposure and a birth outcome. While a traditional DLM method finds an inter-quartile range (IQR) increase in PM$_{2.5}$ (5.9 to 8.5 $\mu g/m^3$) results in an approximate decrease in birth weight of 11.3g, our heterogeneous analysis estimates the impact to be as much as three times larger among the most vulnerable populations. Among the modifiers considered, our analysis finds that age, BMI, Hispanic designation, and education are potentially important modifiers that were selected as a source of heterogeneity. In particular, the results indicate non-Hispanics with increased BMI are more vulnerable to PM$_{2.5}$ exposures and early- and late-gestation are potential critical windows. In addition, we find individual variability within subgroups due to other modifying characteristics. Software to replicate our simulation and method for applications is available in the \texttt{R} package \texttt{dlmtree}.
 
-
-%In this paper, we define the heterogeneous DLM (HDLM). HDLM extends the DLM to estimate a personalized distributed lag function that varies across the population according to a possibly high dimensional set of potential modifying variables. Our additive regression tree approach introduces individualized functional predictors through a vector of structured regression coefficients on the terminal nodes of a modifier tree. %Specifically, an ensemble of regression trees divides the sample based on a set of modifying covariates and estimates a distributed lag function unique to each subgroup. 
-
-%We introduce three methods for estimating the distributed lag function on the modifier tree terminal nodes. The first incorporates the treed DLM method of \cite{Mork2022EstimatingPairs} and defines a nested tree structure where the treed DLM is used to estimate unique critical windows and effect sizes for the subgroup at each terminal node of the modifier tree. The second method uses a treed DLM whose structure is shared across all subgroups and allows for variation in only the magnitude of the effect, but not the location of the critical window. The third considers a Gaussian process DLM for each subgroup which assumes the same smoothness in the distributed lag function for all observations. Our methods extend the tree literature by introducing the concept of a nested tree model, where a tree-based functional estimator is given to subgroups defined by a traditional regression tree. Simulation studies show our tree-based HDLMs have high precision in identifying critical windows and effect modifiers.
-
-%======================================
-%\section{Colorado Birth Cohort Data}\label{sec:data}
-%======================================
-%We analyze birth weight for gestational age $z$-score (BWGAZ) using birth vital statistics records from Colorado, USA. BWGAZ is birth weight adjusted for gestational age and fetal sex using a standard reference table \citep{Fenton2013AInfants}. The data include individual covariates including mother's age, weight, height, income, education, marital status, prenatal care habits, smoking before and during pregnancy, as well as race and Hispanic designations. The data include all births from Colorado with estimated conception dates between 2007 and 2015, inclusive. We limit the data to the northern front range counties (those immediately east of the Rocky Mountains roughy extending from Colorado Springs to the Wyoming border). This area contains the majority of the Colorado population. We further restrict our analysis to census tracts below 6000 feet above sea level, which reduces the potential confounding by altitude and the impact of mountainous terrain on exposure data.  We analyze singleton, full-term births ($\geq37$ weeks) with complete covariate and exposure data, resulting in 310,236 births.
-
-%We retain all available individual-level modifiers for our analysis including continuous variables: maternal age and body mass index (BMI); ordinal variables: income classification, highest educational attainment, and smoking (never, former, less than 10 cigarettes/day, at least 10 cigarettes/day); nominal variables: marital status, prenatal care, and race; and binary variables: sex and Hispanic indicators. We note that BMI is used in place of height and weight as this measurement carries possible clinical significance. The distribution of the modifiers are described in Supplementary Materials Section 1.
-
-%At each census tract in our study, daily PM$_{2.5}$ measurements were obtained from EPA community multiscale air quality modeling system (CMAQ) using downscaled data \citep{Berrocal2010AModels}. We then created 37 consecutive weekly average exposures for each pregnancy beginning on the date of conception for the census tract of residence. The weekly average PM$_{2.5}$ data were log-transformed to reduce skew. The weekly average log-transformed PM$_{2.5}$ measurements range from 0.68 to 3.53 with mean 1.97 and standard deviation 0.30. Pregnancy average log PM$_{2.5}$ exposure ranged from 1.34 to 2.33. To account for potential spatial and temporal confounding, we included a fixed intercept for county, year, and month of conception, and controlled for census tract elevation and trimester average temperature. This study was approved by the Institutional Review Board of Colorado State University.
 
 %======================================
 \section{Colorado Public Health Birth Records Data}\label{sec:co_birth_data}
@@ -129,9 +107,9 @@ We acquired an administrative Colorado birth records dataset from Colorado Depar
 We are interested in the exposure-time-response relationship between PM$_{2.5}$ exposure during pregnancy and resulting birth weight. We consider as an outcome birth weight for gestational age $z$-score (BWGAZ) derived using a standard reference table from the gestational age and sex contained in the birth record \citep{Fenton2013AInfants}. We limit our analysis to singleton, full-term births ($\geq37$ weeks) with complete covariate and exposure data. We further restrict our dataset to Northern front range counties (immediately east of the Rocky Mountains roughy extending from Colorado Springs to the Wyoming border), which contains the majority of the Colorado population, and exclude census tracts higher than 6000 feet above sea level, which reduces the potential confounding by altitude and impact of mountainous terrain on exposure predictions. The resulting birth cohort contains 310,236 births---a large dataset by many standards giving ample power for estimating the exposure-time-response relationship between PM$_{2.5}$ and the birth outcome. 
 
 \subsection{A Traditional DLM Analysis}\label{sec:tdlm_analysis}
-To complete a standard DLM analysis, without effect heterogeneity, we consider a sample indexed by $i=1,\ldots,n$ with outcome $y_i$, a vector of exposure measurements $\mathbf{x}_i=[x_{i1},\ldots,x_{iT}]'$ taken at equally spaced times $t\in\{1,\ldots,T\}$, and a vector of covariates, $\mathbf{z}_i$, which includes the model intercept. Here, index $i$ refers to a singleton live birth delivery, $y_i$ refers to BWGAZ, while $x_{it}$ is the PM$_{2.5}$ exposure measurement related to observation $i$ during week $t$ of pregnancy. For a Gaussian model, the discrete time DLM takes the form $y_i=\sum_{t=1}^T x_{it}\theta_t+\mathbf{z}_i'\boldsymbol\gamma+\varepsilon_i$, where $\boldsymbol\theta=[\theta_1,\ldots,\theta_T]$ represents the distributed lag function with $\theta_t$ the linear effect due to exposure at time $t$; $\boldsymbol\gamma$ is a vector of regression coefficients; and $\varepsilon_i$ represents independent errors distributed $\mathcal{N}(0,\sigma^2)$. In our analysis, $\mathbf{z}_i$ includes a intercept for county, year, and month of conception, as well as census tract elevation and trimester average temperature. %Additional details on this analysis are given in Section \ref{sec:data_analysis}.
+To complete a standard DLM analysis, without effect heterogeneity, we consider a sample indexed by $i=1,\ldots,n$ with outcome $y_i$, a vector of exposure measurements $\mathbf{x}_i=[x_{i1},\ldots,x_{iT}]'$ taken at equally spaced times $t\in\{1,\ldots,T\}$, and a vector of covariates, $\mathbf{z}_i$, which includes the model intercept. Here, index $i$ refers to a singleton live birth delivery, $y_i$ refers to BWGAZ, while $x_{it}$ is the PM$_{2.5}$ exposure measurement related to observation $i$ during week $t$ of pregnancy. For a Gaussian model, the discrete time DLM takes the form $y_i=\sum_{t=1}^T x_{it}\theta_t+\mathbf{z}_i'\boldsymbol\gamma+\varepsilon_i$, where $\boldsymbol\theta=[\theta_1,\ldots,\theta_T]$ represents the distributed lag function with $\theta_t$ the linear effect due to exposure at time $t$; $\boldsymbol\gamma$ is a vector of regression coefficients; and $\varepsilon_i$ represents independent errors distributed $\mathcal{N}(0,\sigma^2)$. In our analysis, $\mathbf{z}_i$ includes a intercept for county, year, and month of conception, as well as census tract elevation and trimester average temperature. 
 
-To account for the autocorrelation between exposures measured at higher temporal resolution the distributed lag function, $\boldsymbol\theta$, is typically constrained to vary smoothly over the time period of exposure. These constraints yield effect estimates that are more biologically plausible, adds stability to the estimator in the presence of high autocorrelation in the exposure data, and allows for data-driven identification of critical windows \citep{Wilson2017PotentialHealth}. Methods for constraining DLMs include splines \citep{Zanobetti2000}, Gaussian processes \citep{Warren2020}, principal components \citep{Wilson2017a}, and regression trees \citep{Mork2023EstimatingPairs}. Here, we take the latter approach to DLM as regression trees have been shown to more precisely identify critical windows. %The majority of studies that apply these methods assume a homogeneous exposure-response relationship across the population.
+To account for the autocorrelation between exposures measured at higher temporal resolution the distributed lag function, $\boldsymbol\theta$, is typically constrained to vary smoothly over the time period of exposure. These constraints yield effect estimates that are more biologically plausible, adds stability to the estimator in the presence of high autocorrelation in the exposure data, and allows for data-driven identification of critical windows \citep{Wilson2017PotentialHealth}. Methods for constraining DLMs include splines \citep{Zanobetti2000}, Gaussian processes \citep{Warren2020}, principal components \citep{Wilson2017a}, and regression trees \citep{Mork2023EstimatingPairs}. Here, we take the latter approach to DLM as regression trees have been shown to more precisely identify critical windows. 
 
 Based on the DLM analysis without effect heterogeneity, we found increased PM$_{2.5}$ exposure was associated with decreased BWGAZ during each week of gestation. The estimated distributed lag function (Figure \ref{fig:est_tdlm}) identified critical windows during weeks 5-6 and 31-34. For an IQR increase in PM$_{2.5}$ at every week of pregnancy (referred to as the cumulative effect) we see an estimated change in BWGAZ of $-0.026$ (95\% CI: $-0.044,-0.006$). In a more interpretable context based on our observed exposure data, an increase from 5.9 to 8.5 $\mu g/m^3$ PM$_{2.5}$ (the 25$^{th}$ and 75$^{th}$ weekly exposure percentiles, respectively) is related to an approximate decrease in birth weight of 11.3g; this is approximate because BWGAZ adjusts for sex and gestational age.
 
@@ -144,7 +122,6 @@ Based on the DLM analysis without effect heterogeneity, we found increased PM$_{
 
 Existing methods to assess heterogeneity in critical windows rely on estimated subgroup-specific effects using models that are stratified by a single categorical factor or cross-classification based on a small number of factors. Sequential, separate analyses of multiple modifiers have several disadvantages, including issues of multiple testing, the fact that estimates of effect modification by one factor are not controlled by modification by a second correlated modifier, and the risk of failing to identify subgroups that are defined only by combinations of multiple modifying factors. Our dataset is rich with candidate modifiers and we seek to identify vulnerable populations though a coherent analysis that considers multiple candidate modifiers simultaneously. 
 
-%At this point, many studies employing a DLM analysis would stop and be satisfied with the described results, or perhaps proceed to evaluate a few predefined subgroups. However, our dataset is rich in individual-level characteristics and combined with a large sample it allows us to ask more nuanced questions. For example, which individual characteristics modify the PM$_{2.5}$---BWGAZ relationship? Do critical windows differ among susceptible populations? Can we characterize individual-specific exposure-time-response relationships?
 
 \subsection{Heterogeneous Distributed Lag Model}\label{sec:hdlm}
 We now describe a heterogeneous distributed lag framework to answer the questions posed in Section \ref{sec:intro}. Consider a set of potential modifiers of the exposure-time-response relationship, denoted $\mathbf{m}_i$ with $\mathbf{m}_i\subseteq \mathbf{z}_i$. These modifiers are used as inputs into the distributed lag function, changing the magnitude and critical windows of the exposure effects. If $\mathbf{m}_i$ is high dimensional, it may also provide unique information about each observation in our analysis or small subgroups with specific characteristics. The heterogeneous distributed lag model (HDLM) is  
@@ -159,39 +136,8 @@ Several methods have sought to estimate DLMs that vary across a population. \cit
 
 
 
-
-%Our method is motivated by an administrative Colorado birth records dataset acquired from Colorado department of public health. The dataset we analyze, which incorporates a range of individual characteristics, allows us to gain insight into the potentially heterogeneous nature of the relationship between an expectant mother's exposure to PM$_{2.5}$ during pregnancy and the resulting birth weight of the child. Our data structure consists of three primary elements, 1) date of birth and mother's census tract of residence, 2) individual-level covariates and outcome for the mother and child derived from the birth record, and 3) estimated weekly exposure to PM$_{2.5}$ and trimester average temperature at the mother's census tract of residence. We aim to first, identify individual characteristics that modify the PM$_{2.5}$ exposure and birth weight relationship, second, estimate critical windows for at-risk populations, and third, describe the exposure-time-response associations between PM$_{2.5}$ and birth weight.
-
-%The outcome of interest is birth weight for gestational age $z$-score (BWGAZ) derived using a standard reference table from the gestational age and sex contained in the birth record \citep{Fenton2013AInfants}. Our administrative dataset includes all births from Colorado with estimated conception dates between 2007 and 2015. We limit our data to Northern front range counties (immediately east of the Rocky Mountains roughy extending from Colorado Springs to the Wyoming border). This area contains the majority of the Colorado population. We further restrict our analysis to census tracts below 6000 feet above sea level, which reduces the potential confounding by altitude and impact of mountainous terrain on exposure predictions.  We analyze singleton, full-term births ($\geq37$ weeks) with complete covariate and exposure data, resulting in 310,236 births.
-
-%We retain all available individual-level modifiers for our analysis including continuous variables: maternal age and BMI; ordinal variables: income classification, highest educational attainment, and smoking (never, former, less than 10 cigarettes/day, at least 10 cigarettes/day); nominal variables: marital status, prenatal care, and race; and binary variables: sex and Hispanic indicators. We note that BMI is used in place of height and weight as this measurement carries possible clinical significance. The distribution of the modifiers are described in Supplementary Materials Section 4.
-
-%At each census tract in our study, daily PM$_{2.5}$ measurements were obtained from EPA community multiscale air quality modeling system using downscaled data \citep{Berrocal2010AModels}. We then created 37 consecutive weekly average exposures for each pregnancy beginning on the date of conception for the census tract of residence. The weekly average PM$_{2.5}$ data were log-transformed to reduce skew. The weekly average log-transformed PM$_{2.5}$ measurements range from 0.68 to 3.53 with mean 1.97 and standard deviation 0.30. Pregnancy average log PM$_{2.5}$ exposure ranged from 1.34 to 2.33. To account for potential spatial and temporal confounding we included in our analyses indicator variables for county, year, and month of conception, as well as census tract elevation and trimester average temperature.
-
-
-
-
-
-%======================================
-%\section{Heterogeneous Distributed Lag Model}\label{sec:hdlm}
-%======================================
-%\subsection{HDLM Framework}
-%We begin by describing a DLM framework without heterogeneity. Consider a sample $i=1,\ldots,n$ with outcome $y_i$, a vector of exposure measurements $\mathbf{x}_i=[x_{i1},\ldots,x_{iT}]'$ taken at equally spaced times $t\in\{1,\ldots,T\}$, and a vector of covariates, $\mathbf{z}_i$, which includes the model intercept. In this paper, index $i$ refers to a singleton live birth delivery, $y_i$ refers to BWGAZ while $x_{it}$ is the PM$_{2.5}$ exposure measurement related to delivery $i$ during week $t$ of pregnancy (considering $T=37$ weeks of gestation). For a Gaussian model without heterogeneity in the exposure effect, the discrete time DLM takes the form
-%\begin{equation}\label{eq:standard_dlm}
-%    y_i=\sum_{t=1}^T x_{it}\theta_t+\mathbf{z}_i'\boldsymbol\gamma+\varepsilon_i,
-%\end{equation}
-%where $\boldsymbol\theta=[\theta_1,\ldots,\theta_T]$ represents the distributed lag function with $\theta_t$ the linear effect due to exposure at time $t$; $\boldsymbol\gamma$ is a vector of regression coefficients; and $\varepsilon_i$ represents independent errors distributed $\mathcal{N}(0,\sigma^2)$.
-
-%We consider a distributed lag function that varies across the population.  Let $\mathbf{m}_i \subseteq \mathbf{z}_i$ be a set of potential modifiers of the exposure-response relationship. The HDLM is
-%\begin{equation}
-%    \label{eq:hetergeneous_dlm}
-%    y_i=\sum_{t=1}^T x_{it}\theta_t(\mathbf{m}_i)+\mathbf{z}_i'\boldsymbol\gamma+\varepsilon_i
-%\end{equation}
-%where $\boldsymbol\theta(\mathbf{m}_i)=[\theta_1(\mathbf{m}_i),\ldots,\theta_T(\mathbf{m}_i)]$ is a heterogeneous distributed lag function with $\theta_t(\mathbf{m}_i)$ parameterizing the exposure effect at time $t$ specific to an observation with modifiers $\mathbf{m}_i$.
-
 \section{Regression Tree Approach to HDLM}\label{sec:reg-tree-hdlm}
 
-%We propose a Bayesian additive regression tree (BART) method for estimating distributed lag function heterogeneity due to a set of modifying covariates. 
 \subsection{Existing Methods}
 The BART framework of \cite{Chipman2012} is a popular method for estimating non-parametric functions, but applied to our data without any modification is insufficient in several respects. First, BART would treat exposure measurements at separate time points as individual covariates, ignoring the temporal structure of the data and leading to increased variance in the exposure effect estimates. Second, BART does not differentiate between the exposures and modifiers. This results in the same level of regularization being applied to the exposure effect and modification effects and a decreased ability to identify modifying factors. Third, DLMs assume linear effects of exposure at each time point with no interaction between exposures at different time points. In contrast, BART would allow for nonlinear associations and interactions across time, complicating interpretation and inference. \citet{Mork2023EstimatingPairs} and \citet{Mork2022TreedModels} introduced extensions of BART (Treed DLM) to harness the temporal structure of the exposure data, leading to significant improvements over BART as well as other competing distributed lag methods for estimating a distributed lag function (e.g. see Figure \ref{fig:bart_vs_tdlm}). The performance gains that result from adding structure to a BART model for Treed DLM motivate this work by adding structure to a BART model to estimate heterogeneous distributed lag functions.
 
@@ -300,9 +246,6 @@ The shared tree HDLM is a simplification of the nested tree HDLM, described in S
 We explored alternative parameterizations to incorporate a constrained DLM in our ensemble model, including Gaussian process and regression spline approaches. Regression splines have a tendency misclassify critical windows and were not considered for this application. A Gaussian process HDLM showed some promise but was consistently subpar to the nested and shared tree HDLM. Complete details of the Gaussian process alternative approach are given in Supplementary Materials Section 1.
 
 
-%An alternative to treed DLMs is a Gaussian process approach to HDLM. Consider a single modifier tree terminal node, $\eta_{ab}$, containing a subset of observations. Let the corresponding $T-$dimensional set of DLM parameters $\boldsymbol\theta_{ab}$ have Gaussian process prior, $\boldsymbol\theta_{ab} |\tau_a,\nu,\sigma,\phi \sim \mathcal{GP}[\mathbf{0},\tau_a^2\nu^2\sigma^2\boldsymbol\Sigma(\phi)]$, where $\Sigma_{\boldsymbol\phi}(t,t')$, is a covariance function with parameters $\phi$, and $\tau_a,\nu$ are horseshoe-like estimators as described in Section \ref{sec:prior}. An inherent assumption of the Gaussian process method is that all observations share the same value of $\phi$ due to the computation approach and therefore have the same smoothness over time in their distributed lag functions. The equal smoothness assumption may be beneficial if the distributed lag function for all observations have a similar magnitude and window length. In the case where there is a nonzero exposure effect in only a small proportion of the population, the smoothness of the distributed lag function imposed by the remaining sample will make this critical window difficult to estimate. This is because estimation of the smoothing parameter will largely reflect the null group and cause over-smoothing in the group for which there is a non-zero association during some gestational weeks. Complete details of the Gaussian process method are given in Supplementary Materials Section 1.
-
-
 
 
 
@@ -351,16 +294,13 @@ Pointwise DLM results averaged across simulation replicates are given in Table \
         \multicolumn{9}{l}{$\sigma^2=1$}\\
       Nested Tree HDLM & 1.94 & 0.97 & 1.00 & 0.02 &  & 1.88 & 0.99 & 0.01 &  & 0.65 & 0.53\\
       Shared Tree HDLM & 2.15 & 0.97 & 0.99 & 0.02 &  & 1.97 & 0.97 & 0.03 &  & 0.35 & 0.47\\
- %Gaussian Process HDLM & 3.24 & 0.95 & 0.99 & 0.03 &  & 2.46 & 0.98 & 0.02 &  & 0.01 & 0.00\\
-%\addlinespace
+
             Treed DLM & 10.87 & 0.61 & 1.00 & 0.22 &  & 5.71 & 0.61 & 0.39 &  & 0.00 & 0.00\\
-               %Gaussian Process DLM & 10.97 & 0.61 & 1.00 & 0.23 &  & 5.67 & 0.61 & 0.39 &  & 0.00 & 0.00\\
 \addlinespace
 MSPE Selected Model & 2.00 & 0.97 & 1.00 & 0.02 &  & 1.86 & 0.98 & 0.02 &  \\
 WAIC Selected Model & 2.05 & 0.97 & 0.99 & 0.02 &  & 1.93 & 0.98 & 0.02 &  \\
 \addlinespace
    Nested Tree: Truth & 0.74 & 0.99 & 1.00 & 0.01 &  & 0.47 & 1.00 & 0.00 &  \\
-     %Gaussian Process: Truth & 2.76 & 0.96 & 1.00 & 0.03 &  & 1.77 & 0.98 & 0.02 &  \\
 
 
 \midrule
@@ -368,16 +308,12 @@ WAIC Selected Model & 2.05 & 0.97 & 0.99 & 0.02 &  & 1.93 & 0.98 & 0.02 &  \\
         \multicolumn{9}{l}{$\sigma^2=25$}\\
         Nested Tree HDLM & 6.29 & 0.92 & 0.90 & 0.04 &  & 2.67 & 1.00 & 0.00 &  & 0.75 & 0.77\\
         Shared Tree HDLM & 7.03 & 0.91 & 0.88 & 0.05 &  & 3.25 & 0.99 & 0.01 &  & 0.25 & 0.23\\
-   %Gaussian Process HDLM & 6.99 & 0.95 & 0.92 & 0.02 &  & 4.02 & 1.00 & 0.00 &  & 0.16 & 0.07\\
-%\addlinespace
               Treed DLM & 11.49 & 0.65 & 0.81 & 0.17 &  & 5.42 & 0.69 & 0.31 &  & 0.00 & 0.00\\
-   %Gaussian Process DLM & 11.52 & 0.70 & 0.63 & 0.11 &  & 5.47 & 0.78 & 0.22 &  & 0.00 & 0.00\\
 \addlinespace
 MSPE Selected Model & 6.33 & 0.92 & 0.90 & 0.04 &  & 2.78 & 1.00 & 0.00 &   \\
 WAIC Selected Model & 6.27 & 0.92 & 0.90 & 0.04 &  & 2.80 & 1.00 & 0.00 &  \\
 \addlinespace
       Nested Tree: Truth & 5.26 & 0.96 & 0.95 & 0.02 &  & 2.10 & 1.00 & 0.00 & \\
- %Gaussian Process: Truth & 6.37 & 0.96 & 0.98 & 0.02 &  & 3.71 & 1.00 & 0.00 & \\
         \bottomrule[2pt]
         \multicolumn{9}{l}{*RMSE$\times100$}\\
     \end{tabular}
@@ -385,9 +321,7 @@ WAIC Selected Model & 6.27 & 0.92 & 0.90 & 0.04 &  & 2.80 & 1.00 & 0.00 &  \\
 
 The nested tree HDLM yielded distributed lag estimates with smaller RMSE than those from shared tree HDLM across both error settings. For critical window identification, the nested tree HDLM yielded a similar or higher TP than the other models in both error settings. The FP of the nested tree HDLM ranged from 0.02 in the low error setting to 0.04 in the high error setting; the shared tree HDLM had FP ranging from 0.02 to 0.05, respectively. The added flexibility of the nested tree HDLM allowed for different change points for critical windows and varying smoothness in the effect and no effect groups. Coverage of the distributed lag function was near nominal levels although slightly lower in the high error setting. The decreased coverage was only evident in the subgroups with a true exposure effect and is due to two factors: shrinkage of the exposure effect and in some cases combining the two groups with different critical windows into a single group.  Coverage in the no effect group was above the nominal level. 
 
-The nested tree HDLM was selected most often by MSPE and WAIC across both error settings. The non-heterogeneous DLMs were never selected, indicating HDLMs better predict the outcome when heterogeneity exists. The MSPE and WAIC selected models had RMSE, coverage, TP and FP comparable to the best performing model (nested tree HDLM), giving evidence that these are valid tools for model selection. The nested tree HDLM with subgroups fixed at the truth outperformed all other models. %Notably, in the high error scenario, the MSPE selected model on average outperformed the individual models in terms of effect RMSE, coverage, and FP.
-
-%The treed DLM model with subgroups fixed at the truth outperformed the HDLM models. This is first due to the fact that the true distributed lag function is not smooth. Second, the smoothness assumption of the Gaussian process was homogeneous across all subgroups, leading to over-smoothing in the effect subgroups and under-smoothing in the no effect subgroup. These results demonstrate the advantage of treed DLM approaches when considering heterogeneity. The DLM methods with no effect modification were consistently the worst performing models with low coverage of the distributed lag function, higher FP rates, and the highest RMSE.
+The nested tree HDLM was selected most often by MSPE and WAIC across both error settings. The non-heterogeneous DLMs were never selected, indicating HDLMs better predict the outcome when heterogeneity exists. The MSPE and WAIC selected models had RMSE, coverage, TP and FP comparable to the best performing model (nested tree HDLM), giving evidence that these are valid tools for model selection. The nested tree HDLM with subgroups fixed at the truth outperformed all other models.
 
 In Supplementary Materials Section 3 we present modifier posterior inclusion probabilities (PIP) for an individual modifier or interactions of modifiers. The PIP for an individual modifier is the probability that the modifier is used in at least one splitting rule across the ensemble of trees. We define a modifier interaction to be when two modifiers are used as consecutive splitting rules in the same tree. The average modifier PIPs is a function of the number of modifiers and number of trees in the model, with larger PIPs for fewer modifiers or more trees. Modifiers with a larger PIP relative to other modifiers represent possible modification of the distributed lag function and critical windows, and give a starting point for comparing the exposure effects for individuals or subgroups.
 
@@ -416,10 +350,7 @@ Table \ref{tab:scen2_res} summarizes model performance in term of estimation of 
         \multicolumn{9}{l}{$\sigma^2=1$}\\
       Nested Tree HDLM & 2.73 & 0.91 & 0.93 & 0.02 &  & 1.73 & 0.99 & 0.01 &  & 0.31 & 0.38\\
       Shared Tree HDLM & 2.50 & 0.92 & 0.95 & 0.02 &  & 1.77 & 0.98 & 0.02 &  & 0.69 & 0.62\\
- %Gaussian Process HDLM & 3.73 & 0.95 & 0.86 & 0.02 &  & 2.40 & 0.99 & 0.01 &  & 0.01 & 0.00\\
-%\addlinespace
              Treed DLM & 9.84 & 0.79 & 1.00 & 0.01 &  & 6.39 & 0.78 & 0.22 &  & 0.00 & 0.00\\
-               %Gaussian Process DLM & 10.13 & 0.79 & 1.00 & 0.02 &  & 6.25 & 0.76 & 0.24 &  & 0.00 & 0.00\\
 \addlinespace
 MSPE Selected Model & 2.52 & 0.92 & 0.94 & 0.02 &  & 1.73 & 0.99 & 0.01 &  \\
 WAIC Selected Model & 2.62 & 0.91 & 0.95 & 0.02 &  & 1.75 & 0.99 & 0.01 &  \\
@@ -429,10 +360,7 @@ WAIC Selected Model & 2.62 & 0.91 & 0.95 & 0.02 &  & 1.75 & 0.99 & 0.01 &  \\
         \multicolumn{9}{l}{$\sigma^2=25$}\\
               Nested Tree HDLM & 6.43 & 0.92 & 0.66 & 0.01 &  & 2.60 & 1.00 & 0.00 &  & 0.40 & 0.41\\
       Shared Tree HDLM & 6.23 & 0.93 & 0.73 & 0.01 &  & 2.85 & 0.99 & 0.01 &  & 0.60 & 0.59\\
- %Gaussian Process HDLM & 7.43 & 0.94 & 0.64 & 0.01 &  & 3.90 & 1.00 & 0.00 &  & 0.10 & 0.02\\
-%\addlinespace
             Treed DLM & 10.83 & 0.82 & 0.92 & 0.02 &  & 5.81 & 0.79 & 0.21 &  & 0.00 & 0.00\\
-               %Gaussian Process DLM & 11.06 & 0.84 & 0.89 & 0.01 &  & 5.76 & 0.80 & 0.20 &  & 0.00 & 0.00\\
 \addlinespace
 MSPE Selected Model & 6.05 & 0.93 & 0.70 & 0.01 &  & 2.74 & 1.00 & 0.00 &  \\
 WAIC Selected Model & 6.32 & 0.92 & 0.72 & 0.01 &  & 2.75 & 0.99 & 0.01 &  \\
@@ -450,13 +378,6 @@ Supplementary Materials Section 3 presents PIPs for individual modifiers and mod
 \section{Heterogeneous Critical Windows for PM$_{2.5}$ and Birth Weight}\label{sec:data_analysis}
 %======================================
 
-%\subsection{Data and Modeling}
-
-%We analyze birth weight for gestational age $z$-score (BWGAZ) derived using a standard reference table from the gestational age and sex contained in the birth record \citep{Fenton2013AInfants}. Our administrative dataset includes all births from Colorado with estimated conception dates between 2007 and 2015, inclusive. We limit the data to the northern front range counties (those immediately east of the Rocky Mountains roughy extending from Colorado Springs to the Wyoming border). This area contains the majority of the Colorado population. We further restrict our analysis to census tracts below 6000 feet above sea level, which reduces the potential confounding by altitude and impact of mountainous terrain on exposure predictions.  We analyze singleton, full-term births ($\geq37$ weeks) with complete covariate and exposure data, resulting in 310,236 births.
-
-%We retain all available individual-level modifiers for our analysis including continuous variables: maternal age and BMI; ordinal variables: income classification, highest educational attainment, and smoking (never, former, less than 10 cigarettes/day, at least 10 cigarettes/day); nominal variables: marital status, prenatal care, and race; and binary variables: sex and Hispanic indicators. We note that BMI is used in place of height and weight as this measurement carries possible clinical significance. The distribution of the modifiers are described in Supplementary Materials Section 4.
-
-%At each census tract in our study, daily PM$_{2.5}$ measurements were obtained from EPA community multiscale air quality modeling system using downscaled data \citep{Berrocal2010AModels}. We then created 37 consecutive weekly average exposures for each pregnancy beginning on the date of conception for the census tract of residence. The weekly average PM$_{2.5}$ data were log-transformed to reduce skew. The weekly average log-transformed PM$_{2.5}$ measurements range from 0.68 to 3.53 with mean 1.97 and standard deviation 0.30. Pregnancy average log PM$_{2.5}$ exposure ranged from 1.34 to 2.33. To account for potential spatial and temporal confounding, we included a fixed intercept for county, year, and month of conception, and controlled for census tract elevation and trimester average temperature.
 
 Using the dataset described in Section \ref{sec:co_birth_data} we applied the nested tree and shared tree HDLMs as well as standard treed DLM (as described in Section \ref{sec:tdlm_analysis}) to estimate the relationship between BWGAZ and a mother's exposure to PM$_{2.5}$ during the first 37 weeks of pregnancy. We allowed for effect heterogeneity due to ten modifiers including continuous variables: maternal age and BMI; ordinal variables: income classification, highest educational attainment, and smoking (never, former, less than 10 cigarettes/day, at least 10 cigarettes/day); nominal variables: marital status, prenatal care, and race; and binary variables: sex and Hispanic indicators. We controlled for demographic, spatial, and temporal covariates outlined in Table \ref{tab:data_cov_mod}. We did not include a fixed effect for fetal sex as the outcome, BWGAZ, was already adjusted for this factor. Each model ran for 15,000 iterations after 5,000 burn-in and was thinned to every 5$^{th}$ iteration. Following 10-fold cross-validation, the shared tree HDLM had lowest average MSPE followed by the nested tree HDLM while standard treed DLM had the largest MSPE. Based on our simulation results showing MSPE as a reliable model selection criteria, we report results from shared tree HDLM. Details of our cross-validation and results from nested tree HDLM are provided in Supplementary Materials Section 4.
 
@@ -489,23 +410,6 @@ Using the dataset described in Section \ref{sec:co_birth_data} we applied the ne
         \bottomrule[2pt]
     \end{tabular}
 \end{table}
-
-%======================================
-%\subsection{DLM without effect modification}\label{sec:data_tdlm}
-%======================================
-%Figure \ref{fig:est_tdlm} shows the estimated exposure effect using a treed DLM with no effect modification. 
-%The treed DLM with no effect modification found that increased PM$_{2.5}$ exposure was associated with decreased BWGAZ during each week of gestation. The DLM (Supplemental Figure 7) identified critical windows during weeks 5-6 and 31-34. The cumulative effect of an inter-quartile range (IQR) increase in PM$_{2.5}$ at every week of pregnancy corresponds to a decrease in BWGAZ of $-0.026$ (95\% CI: $-0.044,-0.006$). In a more interpretable context, an increase from 5.9 to 8.5 $\mu g/m^3$ PM$_{2.5}$ (the 25$^{th}$ and 75$^{th}$ weekly exposure percentiles, respectively) relates to an approximate decrease in birth weight of 11.3g; this is approximate because BWGAZ adjusts for sex and gestational age.
-
-%\begin{figure}[!ht]
-%\spacingset{1}
-%    \centering
-%    \includegraphics[height=5cm]{img/bwgaz_tdlm.png}
-%    \caption{Estimated distributed lag functions due to an IQR increase in PM$_{2.5}$ using the treed DLM with no effect modification. The solid line indicates the posterior mean while the gray area represents a 95\% credible interval. Weeks where the credible interval does not contain zero represent critical windows.}
-%    \label{fig:est_tdlm}
-%\end{figure}
-
-
-
 
 %======================================
 \subsection{Modifier selection to determine vulnerable populations}\label{sec:data_mod_sel}
