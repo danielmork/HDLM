@@ -26,7 +26,7 @@ This data folder of this repository contains simulated data files that replicate
 
 The following packages are required to use the included code.
 
-1. dlmtree (version 0.8.0.0) 
+1. dlmtree (version 0.9.0) 
 	* Install from source `install.packages(path_to_file, repos = NULL, type="source")`
     ! Updated software found at github.com/danielmork/dlmtree
 2. tidyverse (2.0.0)
