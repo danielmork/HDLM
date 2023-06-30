@@ -55,6 +55,7 @@ Harvard T.H. Chan School of Public Health\\\\
 Ander Wilson\\ 
 Department of Statistics\\ Colorado State University}
   \maketitle
+\clearpage
 } \fi
 
 \if0\blind
@@ -68,7 +69,6 @@ Department of Statistics\\ Colorado State University}
   \medskip
 } \fi
 
-\clearpage
 %\bigskip
 \begin{abstract}
 Children's health studies support an association between maternal environmental exposures and children's birth outcomes. A common goal is to identify critical windows of susceptibility--periods during gestation with increased association between maternal exposures and a future outcome.  The timing of the critical windows and magnitude of the associations are likely heterogeneous across different levels of individual, family, and neighborhood characteristics. Using an administrative Colorado birth cohort we estimate the individualized relationship between weekly exposures to fine particulate matter (PM$_{2.5}$) during gestation and birth weight. To achieve this goal, we propose a statistical learning method combining distributed lag models and Bayesian additive regression trees to estimate critical windows at the individual level and identify characteristics that induce heterogeneity from a high-dimensional set of potential modifying factors. We find evidence of heterogeneity in the PM$_{2.5}$–birth weight relationship, with some mother-child dyads showing a 3 times larger decrease in birth weight for an IQR increase in exposure (5.9 to 8.5 $\mu g/m^3$ PM$_{2.5}$) compared to the population average. Specifically, we find increased vulnerability for non-Hispanic mothers who are either younger, have higher body mass index or lower educational attainment. Our case study is the first precision health study of critical windows.
@@ -511,7 +511,7 @@ The present case study allowed for a high-powered analysis by combining the gold
 Our case study and simulations showcase the bias incurred from a standard DLM analysis that does not allow for effect heterogeneity when it exists. To address these shortfalls we propose HDLM as a data-driven method to discover modifiers responsible for heterogeneity in an exposure-time-response relationship. The results highlight the need for methodologies that account for individual differences. Ultimately our method and findings can lead to personalized environmental health decision making and pinpoint at-risk individuals for targeted public health interventions. 
 
 \section*{Supplementary Materials}
-\textbf{Supplement:} Technical derivations, additional simulation and data analysis results.\\
+\textbf{Supplement:} Technical derivations, additional simulation and data analysis results. Archived version of the R packaged used to implement the method in the manuscript (dlmtree\_0.9.0.tar.gz). \\
 \textbf{R-package dlmtree:} Code to implement the software in this manuscript is publicly available at \url{https://github.com/danielmork/dlmtree}. Code to reproduce simulation and data analysis figures and results is provided at \url{https://github.com/danielmork/HDLM}.
 
 
